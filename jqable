@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+import sys
+import json
+import ast
+import re
+
+text = '\n'.join(sys.stdin.readlines())
+text = re.sub(
+    r'([^"])(datetime\.datetime\(\d+, \d+, \d+, \d+, \d+, \d+(?:|, \d+), tzinfo=[^,]+\)),',
+    r'\1"\2",', text)
+d = ast.literal_eval(text)
+print(json.dumps(d))
